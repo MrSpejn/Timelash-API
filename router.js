@@ -1,7 +1,9 @@
-import passport                 from 'passport';
+import passport                     from 'passport';
 
-import {signup, signin}         from './controllers/authentication';
-import passportService          from './services/passport';
+import {signup, signin}             from './controllers/authentication';
+import {getHistory, extendHistory}  from './controllers/history';
+import {showProfile, updateProfile} from './controllers/profile';
+import passportService              from './services/passport';
 
 
 const requireAuth   = passport.authenticate('jwt', { session: false });
@@ -13,4 +15,8 @@ export default (app) => {
     });
     app.post('/signin', requireSignin, signin);
     app.post('/signup', signup);
+    app.get('/history', requireAuth, getHistory);
+    app.post('/history', requireAuth, extendHistory);
+    app.get('/profile', requireAuth, showProfile);
+    app.put('/profile', requireAuth, updateProfile);
 }
