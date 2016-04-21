@@ -1,4 +1,13 @@
-import User from '../models/user';
+import jwt    from 'jwt-simple';
+
+import User   from '../models/user';
+import config from '../config';
+
+
+function tokenForUser(user) {
+  const timestamp = new Date().getTime();
+  return jwt.encode({sub: user.id, iat: timestamp}, config.secret);
+}
 
 export function signup(req, res, next) {
   const email    = req.body.email;
@@ -19,7 +28,7 @@ export function signup(req, res, next) {
     const user = new User({email, password});
     user.save((err) => {
       if (err) return next(err);
-      res.json({success: true});
+      res.json({token: tokenForUser(user)});
     });
   });
 }
