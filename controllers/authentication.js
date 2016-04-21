@@ -1,7 +1,8 @@
-import jwt    from 'jwt-simple';
+import jwt      from 'jwt-simple';
 
-import User   from '../models/user';
-import config from '../config';
+import User     from '../models/user';
+import Profile  from '../models/profile';
+import config   from '../config';
 
 
 function tokenForUser(user) {
@@ -30,6 +31,12 @@ export function signup(req, res, next) {
       if (err) return next(err);
       res.json({token: tokenForUser(user)});
     });
+
+    const profile = new Profile({
+      userID: user.id
+    });
+    profile.save();
+
   });
 }
 
