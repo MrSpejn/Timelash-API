@@ -1,5 +1,5 @@
+import {signup}  from './controllers/authentication';
+
 export default (app) => {
-    app.get('/', (req, res, next) => {
-      res.end('Timelash API Here');
-    });
+    app.post('/signup', signup);
 }
