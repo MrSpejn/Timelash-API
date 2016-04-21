@@ -32,3 +32,8 @@ export function signup(req, res, next) {
     });
   });
 }
+
+export function signin(req, res, next) {
+  const token = tokenForUser(req.user);
+  res.send({token});
+}
