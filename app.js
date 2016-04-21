@@ -1,23 +1,29 @@
 import express      from 'express';
+import http         from 'http';
 import path         from 'path';
-import logger       from 'morgan';
+import morgan       from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser   from 'body-parser';
 
-let app = express();
+import router       from './router';
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
+const app = express();
+
+app.use(morgan('combined'));
+app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+router(app);
 
-app.use((req, res) => {
-  res.send('Timelash Backend Here');
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log('Timelash API listening on port 3000!');
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+// const server = http.createServer(app);
+// server.listen(port);
+// console.log(`Server listening at port ${port}`);
 
-module.exports = app;
