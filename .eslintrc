@@ -6,8 +6,15 @@
   	"es6": true
   },
 
-  "rules":{
-  	"vars-on-top": 2,
-  	"no-undef": 2
+  "rules": {
+    "comma-dangle": 1,
+    "quotes": [ 1, "single" ],
+    "no-undef": 1,
+    "global-strict": 0,
+    "no-extra-semi": 1,
+    "no-underscore-dangle": 0,
+    "no-unused-vars": 1,
+    "no-trailing-spaces": [1, { "skipBlankLines": true }],
+    "no-unreachable": 1,
   }
 }
