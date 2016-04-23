@@ -14,6 +14,6 @@ export function updateProfile(req, res, next) {
   Profile.findOneAndUpdate({userID: req.user.id}, propsToUpdate, (err, profile) => {
     if (err) return next(err);
 
-    return res.send(profile);
+    return res.status(200).end();
   });
 }

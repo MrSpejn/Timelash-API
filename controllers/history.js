@@ -13,8 +13,8 @@ export function extendHistory(req, res, next) {
   if (!story.name || !story.time || !story.date) {
     res.status(422).send("You must supply all required fields");
   }
-  new History({...story, userID: req.user.id}).save((err, savedObject) => {
+  new History({...story, userID: req.user.id}).save((err) => {
     if (err) return next(err);
-    return res.status(200).send(savedObject);
+    return res.status(200).end();
   });
 }
